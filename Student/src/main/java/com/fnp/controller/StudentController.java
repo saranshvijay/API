@@ -46,7 +46,7 @@ public class StudentController {
 		return status;
 	}
 
-	@PostMapping("/students/getall")
+	@GetMapping("/students")
 	public List<Student> getallStudent() {
 		List<Student> list = studentService.getAllStudents();
 		return list;
