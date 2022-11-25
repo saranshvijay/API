@@ -21,7 +21,7 @@
 <body>
     
     <fieldset>
-        <form action="/save" method="post">
+        <form action="/students" method="post">
             <label for="id">Id : </label>
             <input type="number" id="id" name="id" value="1"><br>
             <label for="name">Name : </label>
@@ -43,21 +43,21 @@
         </form>
     </fieldset>
     <fieldset>
-    	<form action="/delete" method="post">
+    	<form action="/students" method="get">
     		<label for="id">Id : </label>
             <input type="number" id="delete" name="delete" value="1"><br>
             <input type="submit" id="delete" name="delete" value="Delete">
     	</form>
     </fieldset>
     <fieldset>
-    	<form action="/read" method="post">
+    	<form action="/read" method="get">
     		<label for="id">Id : </label>
             <input type="number" id="id" name="id" value="1"><br>
             <input type="submit" value="Submit">
     	</form>
     </fieldset>
     <fieldset>
-    <form action="/getall" method="post">
+    <form action="students/getall" method="post">
             
             <input type="submit" value="Get All">
     	</form>

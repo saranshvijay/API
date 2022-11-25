@@ -4,76 +4,59 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-//import com.fnp.dao.StudentDao;
 import com.fnp.dto.Student;
 import com.fnp.service.StudentService;
 
-@Controller
+@RestController
 public class StudentController {
 
 	@Autowired
 	StudentService studentService;
-	
-	@PostMapping("/save")
-	public Model sendStudent(Student student, Model model) {
-		
-		Student s = studentService.saveStudent(student);
-		
-		model.addAttribute("studentId", s.getId());
-		model.addAttribute("studentName", s.getName());
-		model.addAttribute("studentEmail", s.getEmail());
-		model.addAttribute("studentCreator", s.getCreatedby());
-		model.addAttribute("studentUpdater", s.getUpdatedBy());
-		model.addAttribute("studentPhone", s.getPhone());
-		model.addAttribute("studentCreationDate", s.getCreatedOn());
-		model.addAttribute("studentUpdationDate", s.getLastUpdatedBy());
 
-		System.out.println(s);
-		System.out.println(s.getCreatedby());
-		return model;
+	@PostMapping(value = "/students" /* , produces= {"application/json"} */)
+	public Student sendStudent(@ModelAttribute Student student) {
+
+		Student stu = studentService.saveStudent(student);
+		System.out.println(stu);
+		System.out.println(stu.getCreatedby());
+		return stu;
 	}
-	
-	@PostMapping("/delete")
-	public Model deleteStudent(@RequestParam int delete, Model model) {
-			
+
+	@DeleteMapping("/students/{id}")
+	public String deleteStudent(@RequestParam int delete) {
+
 		String status = studentService.deleteStudent(delete);
-		model.addAttribute("msg",status);
-		return model;
+		return status;
 	}
-	
-	@PostMapping("/read")
-	public Model readStudent(@RequestParam int id, Model model) {
-			
+
+	@GetMapping("/students/{id}")
+	public Optional<Student> readStudent(@PathVariable("id") int id) {
+
 		Optional<Student> s = studentService.readStudent(id);
-		model.addAttribute("msg",s);
-		return model;
+		return s;
 	}
-	
-	@PostMapping("/update")
-	public Model updateStudent(Student s, Model model) {
+
+	@PutMapping("/students")
+	public String updateStudent(Student s) {
+
 		String ss = studentService.updateStudent(s);
-		model.addAttribute("status",ss);
-		return model;
+		return ss;
 	}
-	
-	@PostMapping("/getall")
-	public Model getallStudent(Model model) throws JsonProcessingException {
-		String s = studentService.getAllStudents().toString();
-		//List<Student> list = studentService.getAllStudents();
-		model.addAttribute("status",s);
-		
-		//ObjectMapper map = new ObjectMapper();
-		//String json = map.writeValueAsString(list);
-		return model;
+
+	@PostMapping("/students/getall")
+	public List<Student> getallStudent() {
+
+		List<Student> list = studentService.getAllStudents();
+		return list;
 	}
 
 }
