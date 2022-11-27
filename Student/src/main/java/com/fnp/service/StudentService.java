@@ -2,10 +2,8 @@ package com.fnp.service;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import com.fnp.dao.StudentRepository;
 import com.fnp.dto.Student;
 
@@ -16,7 +14,6 @@ public class StudentService {
 	StudentRepository repository;
 
 	public Student saveStudent(Student student) {
-
 		return repository.save(student);
 	}
 
@@ -30,16 +27,16 @@ public class StudentService {
 		}
 	}
 
-	public String updateStudent(Student s) {
+	public String updateStudent(Student student) {
 
-		if (repository.existsById(s.getId())) {
-			repository.save(s);
+		if (repository.existsById(student.getId())) {
+			repository.save(student);
 			return "Updated Successfully.";
 		}
-		return "Records do not exist.";
+		return "Record does not exist.";
 	}
 
-	public Optional<Student> readStudent(int id) {
+	public Optional<Student> getStudent(int id) {
 
 		if (repository.existsById(id)) {
 

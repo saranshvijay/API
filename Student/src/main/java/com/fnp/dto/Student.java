@@ -1,31 +1,29 @@
 package com.fnp.dto;
 
 import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.NonNull;
-import org.springframework.stereotype.Component;
 
 
 @Entity
 public class Student {
 	
 	@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
-	//@NonNull
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@NonNull
 	private int id;
 	private String name;
 	private String email;
+	@NonNull
 	private long phone;
 	private Date lastUpdatedBy;
 	private Date CreatedOn;
 	private String Createdby;
 	private String UpdatedBy;
+	
 	/**
 	 * @return the id
 	 */
