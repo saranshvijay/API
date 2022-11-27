@@ -22,7 +22,7 @@ public class StudentController {
 	@Autowired
 	StudentService studentService;
 
-	@PostMapping(value = "/students")
+	@PostMapping("/students")
 	public Student sendStudent(@ModelAttribute Student student) {
 		Student studentObj = studentService.saveStudent(student);
 		return studentObj;
@@ -48,7 +48,7 @@ public class StudentController {
 
 	@GetMapping("/students")
 	public List<Student> getallStudent() {
-		List<Student> list = studentService.getAllStudents();
-		return list;
+		List<Student> students = studentService.getAllStudents();
+		return students;
 	}
 }
