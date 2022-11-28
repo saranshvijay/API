@@ -1,31 +1,37 @@
 package com.fnp.dto;
 
 import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.NonNull;
-import org.springframework.stereotype.Component;
 
 
 @Entity
 public class Student {
 	
 	@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
-	//@NonNull
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@NotNull
 	private int id;
+	@NotNull(message = "name cant be empty.")
+	
 	private String name;
+	@Email(message = "please enter correct format.")
 	private String email;
+	@NotNull
 	private long phone;
+	
 	private Date lastUpdatedBy;
 	private Date CreatedOn;
 	private String Createdby;
 	private String UpdatedBy;
+	
 	/**
 	 * @return the id
 	 */
