@@ -33,12 +33,10 @@ public class StudentController {
 
 		Student studentObj = null;
 		if (bindingResult.hasErrors()) {
-			System.out.println(bindingResult.getErrorCount() + "\n" + bindingResult.getFieldErrorCount("name"));
-			return null;
-
+			return ResponseEntity.badRequest().body(studentObj);
 		}
 		studentObj = studentService.saveStudent(studentModel);
-		return ResponseEntity.ok(studentObj);
+		return ResponseEntity.ok().body(studentObj);
 	}
 
 	@DeleteMapping("/students/{id}")

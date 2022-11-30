@@ -17,6 +17,5 @@ public class StudentApplication {
 		SpringApplication.run(StudentApplication.class, args);
 		Date date = new Date();
 		StudentInterceptor.dateStore = date;
-		
 	}
 }
