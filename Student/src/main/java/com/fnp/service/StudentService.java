@@ -1,11 +1,13 @@
 package com.fnp.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.fnp.dao.StudentRepository;
 import com.fnp.dto.Student;
+import com.fnp.dto.StudentModel;
 
 @Repository
 public class StudentService {
@@ -13,9 +15,20 @@ public class StudentService {
 	@Autowired
 	StudentRepository repository;
 
-	public Student saveStudent(Student student) {
-		
-		return repository.save(student);
+	@Autowired
+	Student s;
+	
+	public Student saveStudent(StudentModel studentModel) {
+		Date date = new Date();
+		s.setId(studentModel.getId());
+		s.setName(studentModel.getName());
+		s.setPhone(studentModel.getPhone());
+		s.setEmail(studentModel.getEmail());
+		s.setCreatedby("John");
+		s.setUpdatedBy("John");
+		s.setCreatedOn(date);
+		s.setLastUpdatedBy(date);
+		return repository.save(s);
 	}
 
 	public String deleteStudent(int id) {
@@ -28,10 +41,19 @@ public class StudentService {
 		}
 	}
 
-	public String updateStudent(Student student) {
+	public String updateStudent(StudentModel studentModel) {
+		
+		Date date = new Date();
 
-		if (repository.existsById(student.getId())) {
-			repository.save(student);
+		s.setId(studentModel.getId());
+		s.setName(studentModel.getName());
+		s.setPhone(studentModel.getPhone());
+		s.setEmail(studentModel.getEmail());
+		s.setUpdatedBy("John");
+		s.setLastUpdatedBy(date);
+		
+		if (repository.existsById(s.getId())) {
+			repository.save(s);
 			return "Updated Successfully.";
 		}
 		return "Record does not exist.";
