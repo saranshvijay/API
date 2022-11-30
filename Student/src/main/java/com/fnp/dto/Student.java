@@ -19,14 +19,13 @@ public class Student {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@NotNull
 	private int id;
-	@NotNull(message = "name cant be empty.")
-	
+	@NotBlank(message = "name cant be empty.")
 	private String name;
 	@Email(message = "please enter correct format.")
 	private String email;
 	@NotNull
 	private long phone;
-	
+	//enum valida
 	private Date lastUpdatedBy;
 	private Date CreatedOn;
 	private String Createdby;

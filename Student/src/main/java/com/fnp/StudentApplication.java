@@ -11,7 +11,6 @@ public class StudentApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(StudentApplication.class, args);
 	}
-
 }
 //1 to create com.fnp.package
 //2 @Configuration enable jpare
