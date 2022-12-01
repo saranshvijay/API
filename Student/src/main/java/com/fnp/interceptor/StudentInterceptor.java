@@ -13,20 +13,19 @@ import org.springframework.web.servlet.ModelAndView;
 public class StudentInterceptor implements HandlerInterceptor {
 
 	private static org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(StudentInterceptor.class);
-
-	public static Date dateStore;
+	
+	public static Date dateStore = new Date(); 
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		log.info(request + "  " + request.getMethod());
 
-		Long millis = dateStore.getTime();
-		System.out.println(millis);
-		Long time = millis + (60 * 1000);
-		if (time > System.currentTimeMillis()) {
-			return false;
-		}
+//		Long millis = dateStore.getTime();
+//		Long time = millis + (60 * 1000);
+//		if (time > System.currentTimeMillis()) {
+//			return false;
+//		}
 		return true;
 	}
 

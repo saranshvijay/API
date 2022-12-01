@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.stereotype.Component;
 
 @Entity
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Component;
 public class Student {
 
 	@Id
+	@NotNull
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;

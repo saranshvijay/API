@@ -16,19 +16,19 @@ public class StudentService {
 	StudentRepository repository;
 
 	@Autowired
-	Student s;
+	Student student;
 	
 	public Student saveStudent(StudentModel studentModel) {
 		Date date = new Date();
-		s.setId(studentModel.getId());
-		s.setName(studentModel.getName());
-		s.setPhone(studentModel.getPhone());
-		s.setEmail(studentModel.getEmail());
-		s.setCreatedby("John");
-		s.setUpdatedBy("John");
-		s.setCreatedOn(date);
-		s.setLastUpdatedBy(date);
-		return repository.save(s);
+		student.setId(studentModel.getId());
+		student.setName(studentModel.getName());
+		student.setPhone(studentModel.getPhone());
+		student.setEmail(studentModel.getEmail());
+		student.setCreatedby("John");
+		student.setUpdatedBy("John");
+		student.setCreatedOn(date);
+		student.setLastUpdatedBy(date);
+		return repository.save(student);
 	}
 
 	public String deleteStudent(int id) {
@@ -45,15 +45,15 @@ public class StudentService {
 		
 		Date date = new Date();
 
-		s.setId(studentModel.getId());
-		s.setName(studentModel.getName());
-		s.setPhone(studentModel.getPhone());
-		s.setEmail(studentModel.getEmail());
-		s.setUpdatedBy("John");
-		s.setLastUpdatedBy(date);
+		student.setId(studentModel.getId());
+		student.setName(studentModel.getName());
+		student.setPhone(studentModel.getPhone());
+		student.setEmail(studentModel.getEmail());
+		student.setUpdatedBy("John");
+		student.setLastUpdatedBy(date);
 		
-		if (repository.existsById(s.getId())) {
-			repository.save(s);
+		if (repository.existsById(student.getId())) {
+			repository.save(student);
 			return "Updated Successfully.";
 		}
 		return "Record does not exist.";

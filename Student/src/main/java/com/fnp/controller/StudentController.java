@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fnp.dto.Student;
 import com.fnp.dto.StudentModel;
+import com.fnp.exception.StudentBindingException;
 import com.fnp.service.StudentService;
 
 @RestController
@@ -29,26 +30,27 @@ public class StudentController {
 
 	@PostMapping(value = "/students", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Student> sendStudent(@Valid @RequestBody StudentModel studentModel,
-			BindingResult bindingResult) {
+			BindingResult bindingResult) throws Exception {
 
 		Student studentObj = null;
 		if (bindingResult.hasErrors()) {
-			return ResponseEntity.badRequest().body(studentObj);
+
+			throw new StudentBindingException("hgghjg");
 		}
 		studentObj = studentService.saveStudent(studentModel);
 		return ResponseEntity.ok().body(studentObj);
 	}
 
 	@DeleteMapping("/students/{id}")
-	public String deleteStudent(@PathVariable("id") int delete) {
+	public ResponseEntity<String> deleteStudent(@PathVariable("id") int delete) {
 		String status = studentService.deleteStudent(delete);
-		return status;
+		return ResponseEntity.ok(status);
 	}
 
 	@GetMapping("/students/{id}")
-	public Optional<Student> getStudent(@PathVariable("id") int id) {
+	public ResponseEntity<Optional<Student>> getStudent(@PathVariable("id") int id) {
 		Optional<Student> studentObj = studentService.getStudent(id);
-		return studentObj;
+		return ResponseEntity.ok(studentObj);
 	}
 
 	@PutMapping("/students")
@@ -58,8 +60,8 @@ public class StudentController {
 	}
 
 	@GetMapping("/students")
-	public List<Student> getallStudent() {
+	public ResponseEntity<List<Student>> getallStudent() {
 		List<Student> students = studentService.getAllStudents();
-		return students;
+		return ResponseEntity.ok(students);
 	}
 }
