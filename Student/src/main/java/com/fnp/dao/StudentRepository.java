@@ -7,5 +7,5 @@ import com.fnp.dto.Student;
 
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Integer> {
-	
+
 }

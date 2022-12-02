@@ -1,11 +1,13 @@
 package com.fnp.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.fnp.dao.StudentRepository;
 import com.fnp.dto.Student;
+import com.fnp.dto.StudentModel;
 
 @Repository
 public class StudentService {
@@ -13,7 +15,20 @@ public class StudentService {
 	@Autowired
 	StudentRepository repository;
 
-	public Student saveStudent(Student student) {
+	@Autowired
+	Student student;
+	
+	public Student saveStudent(StudentModel studentModel) {
+		Date date = new Date();
+		student.setId(studentModel.getId());
+		student.setName(studentModel.getName());
+		student.setPhone(studentModel.getPhone());
+		student.setEmail(studentModel.getEmail());
+		student.setCreatedby("John");
+		student.setUpdatedBy("John");
+		student.setCreatedOn(date);
+		student.setLastUpdatedBy(date);
+
 		return repository.save(student);
 	}
 
@@ -27,7 +42,18 @@ public class StudentService {
 		}
 	}
 
-	public String updateStudent(Student student) {
+
+	public String updateStudent(StudentModel studentModel) {
+		
+		Date date = new Date();
+
+		student.setId(studentModel.getId());
+		student.setName(studentModel.getName());
+		student.setPhone(studentModel.getPhone());
+		student.setEmail(studentModel.getEmail());
+		student.setUpdatedBy("John");
+		student.setLastUpdatedBy(date);
+		
 
 		if (repository.existsById(student.getId())) {
 			repository.save(student);
