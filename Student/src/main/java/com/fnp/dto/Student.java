@@ -1,30 +1,35 @@
 package com.fnp.dto;
 
 import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
 import javax.validation.constraints.NotNull;
 
 import org.springframework.stereotype.Component;
+
 
 @Entity
 @Component
 public class Student {
 
 	@Id
+
 	@NotNull
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	private int id;
 	private String name;
 	private String email;
+	@NonNull
 	private long phone;
 	private Date lastUpdatedBy;
 	private Date CreatedOn;
 	private String Createdby;
 	private String UpdatedBy;
+
 
 	/**
 	 * @return the id

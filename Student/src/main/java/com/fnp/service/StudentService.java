@@ -28,6 +28,7 @@ public class StudentService {
 		student.setUpdatedBy("John");
 		student.setCreatedOn(date);
 		student.setLastUpdatedBy(date);
+
 		return repository.save(student);
 	}
 
@@ -41,6 +42,7 @@ public class StudentService {
 		}
 	}
 
+
 	public String updateStudent(StudentModel studentModel) {
 		
 		Date date = new Date();
@@ -52,6 +54,7 @@ public class StudentService {
 		student.setUpdatedBy("John");
 		student.setLastUpdatedBy(date);
 		
+
 		if (repository.existsById(student.getId())) {
 			repository.save(student);
 			return "Updated Successfully.";
