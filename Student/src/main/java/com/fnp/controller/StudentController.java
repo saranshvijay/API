@@ -6,13 +6,11 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -30,7 +28,6 @@ public class StudentController {
 	@Autowired
 	StudentService studentService;
 
-
 	@PostMapping(value = "/students", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Student> sendStudent(@Valid @RequestBody StudentModel studentModel,
 			BindingResult bindingResult) throws Exception {
@@ -38,7 +35,7 @@ public class StudentController {
 		Student studentObj = null;
 		if (bindingResult.hasErrors()) {
 
-			throw new StudentBindingException("hgghjg");
+			throw new StudentBindingException(bindingResult.toString());
 		}
 		studentObj = studentService.saveStudent(studentModel);
 		return ResponseEntity.ok().body(studentObj);
@@ -66,6 +63,5 @@ public class StudentController {
 	public ResponseEntity<List<Student>> getallStudent() {
 		List<Student> students = studentService.getAllStudents();
 		return ResponseEntity.ok(students);
-
 	}
 }
