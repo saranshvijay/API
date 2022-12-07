@@ -6,13 +6,12 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -30,42 +29,44 @@ public class StudentController {
 	@Autowired
 	StudentService studentService;
 
-
 	@PostMapping(value = "/students", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
 	public ResponseEntity<Student> sendStudent(@Valid @RequestBody StudentModel studentModel,
 			BindingResult bindingResult) throws Exception {
-
 		Student studentObj = null;
 		if (bindingResult.hasErrors()) {
 
-			throw new StudentBindingException("hgghjg");
+			throw new StudentBindingException(bindingResult.toString());
 		}
 		studentObj = studentService.saveStudent(studentModel);
 		return ResponseEntity.ok().body(studentObj);
 	}
 
 	@DeleteMapping("/students/{id}")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<String> deleteStudent(@PathVariable("id") int delete) {
 		String status = studentService.deleteStudent(delete);
 		return ResponseEntity.ok(status);
 	}
 
 	@GetMapping("/students/{id}")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<Optional<Student>> getStudent(@PathVariable("id") int id) {
 		Optional<Student> studentObj = studentService.getStudent(id);
 		return ResponseEntity.ok(studentObj);
 	}
 
 	@PutMapping("/students")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<String> updateStudent(@RequestBody StudentModel studentModel) {
 		String status = studentService.updateStudent(studentModel);
 		return ResponseEntity.ok(status);
 	}
 
 	@GetMapping("/students")
+	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
 	public ResponseEntity<List<Student>> getallStudent() {
 		List<Student> students = studentService.getAllStudents();
 		return ResponseEntity.ok(students);
-
 	}
 }

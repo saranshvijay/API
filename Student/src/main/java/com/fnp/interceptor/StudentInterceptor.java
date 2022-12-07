@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -12,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Component
 public class StudentInterceptor implements HandlerInterceptor {
 
-	private static org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(StudentInterceptor.class);
+	private static Logger log = LoggerFactory.getLogger(StudentInterceptor.class);
 	
 	public static Date dateStore = new Date(); 
 
