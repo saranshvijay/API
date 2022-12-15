@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            text-align: center;
+            align-content: center;
+            background-color:CadetBlue
+        }
+        fieldset{
+            width: 500px;
+            margin:auto;
+        }
+
+    </style>
+</head>
+<body>
+    
+    <fieldset>
+        <form action="/students" method="post">
+            <label for="id">Id : </label>
+            <input type="number" id="id" name="id" value="1"><br>
+            <label for="name">Name : </label>
+            <input type="text" id="name" name="name" value="testname"><br>
+            <label for="email">Email : </label>
+            <input type="email" id="email" name="email" value="a@b.com"><br>
+            <label for="name">Phone : </label>
+            <input type="number" id="phone" name="phone" value="1234567890"><br>
+            <label for="lastUpdatedBy">Updation Date : </label>
+            <input type="text" id="date" name="lastUpdatedBy" placeholder="dd/mm/yyyy" value="01/01/1234"><br>
+            <label for="CreatedOn">Creation Date : </label>
+            <input type="text" id="createdby" name="CreatedOn" placeholder="dd/mm/yyyy" value="01/01/1234"><br>
+            <label for="Createdby">Created by : </label>
+            <input type="text" id="created" name="Createdby" value="testname" ><br>
+            <label for="UpdatedBy">Updated by : </label>
+            <input type="text" id="update" name="UpdatedBy" value="testname"><br>
+            <input type="submit">
+            <input type="button" id="u" name="update" formaction="/update" formmethod="post" value="Update">
+        </form>
+    </fieldset>
+    <fieldset>
+    	<form action="/students" method="get">
+    		<label for="id">Id : </label>
+            <input type="number" id="delete" name="delete" value="1"><br>
+            <input type="submit" id="delete" name="delete" value="Delete">
+    	</form>
+    </fieldset>
+    <fieldset>
+    	<form action="/read" method="get">
+    		<label for="id">Id : </label>
+            <input type="number" id="id" name="id" value="1"><br>
+            <input type="submit" value="Submit">
+    	</form>
+    </fieldset>
+    <fieldset>
+    <form action="students/getall" method="post">
+            
+            <input type="submit" value="Get All">
+    	</form>
+    </fieldset>
+    <div id="display"></div>
+</body>
+</html>
