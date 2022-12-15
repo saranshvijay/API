@@ -11,7 +11,7 @@ public class StudentBindingExceptionController {
 	@ExceptionHandler(value = StudentBindingException.class)
 	public ResponseEntity<Object> exeption(StudentBindingException e){
 		
-		return new ResponseEntity<Object>("could not bind " + e, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<Object>("could not bind. " + e, HttpStatus.BAD_REQUEST);
 	}
 	
 
