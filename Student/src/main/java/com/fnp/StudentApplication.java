@@ -2,12 +2,17 @@ package com.fnp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 @SpringBootApplication
 @EnableJpaRepositories
-@ComponentScan(basePackages = "com.fnp")
+@EnableCaching
+@EnableSwagger2
+@ComponentScan(basePackages = {"com.fnp","com.fnp.converter"})
 
 public class StudentApplication {
 

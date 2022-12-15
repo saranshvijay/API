@@ -1,5 +1,6 @@
 package com.fnp.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,18 +9,20 @@ import javax.persistence.Id;
 
 import javax.validation.constraints.NotNull;
 
+import org.springframework.data.redis.core.RedisHash;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 
 @Entity
-@Component
-public class Student {
+//@RedisHash
+public class Student implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	@Id
-
 	@NotNull
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
 	private int id;
 	private String name;
 	private String email;
@@ -29,7 +32,26 @@ public class Student {
 	private Date CreatedOn;
 	private String Createdby;
 	private String UpdatedBy;
+	
+	
 
+	public Student(int id, String name, String email, long phone, Date lastUpdatedBy, Date createdOn,
+			String createdby, String updatedBy) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.phone = phone;
+		this.lastUpdatedBy = lastUpdatedBy;
+		CreatedOn = createdOn;
+		Createdby = createdby;
+		UpdatedBy = updatedBy;
+	}
+
+	public Student() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @return the id
