@@ -9,13 +9,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fnp.dto.User;
 
-public class MyUserDetails implements UserDetails {
+public class CustomUserDetails implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
 
 	private User user;
 
-	public MyUserDetails(User user) {
+	public CustomUserDetails(User user) {
 		super();
 		this.user = user;
 	}

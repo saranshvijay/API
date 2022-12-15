@@ -10,7 +10,7 @@ import com.fnp.dao.UserRepository;
 import com.fnp.dto.User;
 
 @Service
-public class MyUserDetailsService implements UserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
 
 	@Autowired
 	UserRepository userRepository;
@@ -19,6 +19,6 @@ public class MyUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
 		User user = userRepository.findByUsername(username);
-		return new MyUserDetails(user);
+		return new CustomUserDetails(user);
 	}
 }

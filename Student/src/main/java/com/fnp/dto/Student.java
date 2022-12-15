@@ -1,5 +1,6 @@
 package com.fnp.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -12,8 +13,10 @@ import org.springframework.stereotype.Component;
 
 @Entity
 @Component
-public class Student {
+public class Student implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@NotNull
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

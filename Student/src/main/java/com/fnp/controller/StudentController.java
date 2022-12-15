@@ -23,6 +23,10 @@ import com.fnp.dto.StudentModel;
 import com.fnp.exception.StudentBindingException;
 import com.fnp.service.StudentService;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 @RestController
 public class StudentController {
 
@@ -31,7 +35,7 @@ public class StudentController {
 
 	@PostMapping(value = "/students", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-	public ResponseEntity<Student> sendStudent(@Valid @RequestBody StudentModel studentModel,
+	public ResponseEntity<Student> addStudent(@Valid @RequestBody StudentModel studentModel,
 			BindingResult bindingResult) throws Exception {
 		Student studentObj = null;
 		if (bindingResult.hasErrors()) {
@@ -48,9 +52,14 @@ public class StudentController {
 		String status = studentService.deleteStudent(delete);
 		return ResponseEntity.ok(status);
 	}
-
+	
+	@ApiOperation(value = "Get a product by id", notes = "Returns a product as per the id")
+	@ApiResponses(value = {
+	  @ApiResponse(code = 200, message = "Successfully retrieved"),
+	  @ApiResponse(code = 404, message = "Not found - The product was not found")
+	})
 	@GetMapping("/students/{id}")
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
 	public ResponseEntity<Optional<Student>> getStudent(@PathVariable("id") int id) {
 		Optional<Student> studentObj = studentService.getStudent(id);
 		return ResponseEntity.ok(studentObj);
