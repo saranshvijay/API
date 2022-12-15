@@ -1,4 +1,4 @@
-package com.fnp.dto;
+package com.fnp.model;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -68,6 +68,22 @@ public class StudentModel {
 	 * @param phone the phone to set
 	 */
 	public void setPhone(long phone) {
+		this.phone = phone;
+	}
+	
+	
+	
+	public StudentModel() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public StudentModel(@NotNull int id, @NotBlank(message = "name cant be empty.") String name,
+			@Email(message = "please enter correct format.") String email, @NotNull long phone) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
 		this.phone = phone;
 	}
 

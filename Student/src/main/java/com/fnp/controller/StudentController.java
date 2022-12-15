@@ -19,13 +19,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fnp.dto.Student;
-import com.fnp.dto.StudentModel;
 import com.fnp.exception.StudentBindingException;
+import com.fnp.model.StudentModel;
 import com.fnp.service.StudentService;
-
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 
 @RestController
 public class StudentController {
@@ -53,11 +49,7 @@ public class StudentController {
 		return ResponseEntity.ok(status);
 	}
 	
-	@ApiOperation(value = "Get a product by id", notes = "Returns a product as per the id")
-	@ApiResponses(value = {
-	  @ApiResponse(code = 200, message = "Successfully retrieved"),
-	  @ApiResponse(code = 404, message = "Not found - The product was not found")
-	})
+
 	@GetMapping("/students/{id}")
 	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
 	public ResponseEntity<Optional<Student>> getStudent(@PathVariable("id") int id) {

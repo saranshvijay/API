@@ -5,7 +5,7 @@ import java.util.Date;
 import org.springframework.stereotype.Component;
 
 import com.fnp.dto.Student;
-import com.fnp.dto.StudentModel;
+import com.fnp.model.StudentModel;
 
 @Component
 public class StudentConverter {

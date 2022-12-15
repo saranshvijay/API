@@ -1,4 +1,4 @@
-package com.fnp.dao;
+package com.fnp.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
