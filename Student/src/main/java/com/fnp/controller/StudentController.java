@@ -30,7 +30,7 @@ public class StudentController {
 	StudentService studentService;
 
 	@PostMapping(value = "/students", consumes = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasRole('ROLE_USER')")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<Student> addStudent(@Valid @RequestBody StudentModel studentModel,
 			BindingResult bindingResult) throws Exception {
 		Student studentObj = null;
