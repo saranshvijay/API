@@ -51,7 +51,7 @@ public class StudentController {
 	
 
 	@GetMapping("/students/{id}")
-	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ROLE_USER')")
 	public ResponseEntity<Optional<Student>> getStudent(@PathVariable("id") int id) {
 		Optional<Student> studentObj = studentService.getStudent(id);
 		return ResponseEntity.ok(studentObj);

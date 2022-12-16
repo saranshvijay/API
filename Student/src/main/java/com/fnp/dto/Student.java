@@ -1,3 +1,4 @@
+
 package com.fnp.dto;
 
 import java.io.Serializable;

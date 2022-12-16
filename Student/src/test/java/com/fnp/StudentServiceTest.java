@@ -7,6 +7,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Date;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -22,7 +23,7 @@ import com.fnp.repository.StudentRepository;
 import com.fnp.service.StudentService;
 
 @SpringBootTest
-public class Tester {
+public class StudentServiceTest {
 	
 	@Mock
 	private StudentRepository repo;
@@ -46,7 +47,7 @@ public class Tester {
 	}
 
 	@Test
-	void testSave() {
+	void saveStudent() {
 		
 		StudentModel studentModel = new StudentModel();
 		studentModel.setId(1);
@@ -65,19 +66,14 @@ public class Tester {
 		student.setUpdatedBy("John");
 		student.setCreatedOn(date);
 		student.setLastUpdatedBy(date);
-		
-		System.out.println("hkjh");
-
-		System.out.println(studentModel);
-		System.out.println("jggj");
+	
 		Student student2 = service.saveStudent(studentModel);
-		System.out.println(student2);
 		assertEquals(1434343473,student2.getId());
 
 	}
 	
 	@Test
-	void testGetAll() {
+	void testgetAllStudents() {
 		
 		Date date = new Date();
 		//When method requires an argument which has to be a Mock(method call on mock);
@@ -86,15 +82,15 @@ public class Tester {
 	}
 	
 	@Test
-	void testDelete() {
-		
+	void testdeleteStudent() {
+		when(repo.save(s)).thenReturn(s);
 		repo.delete(s);
 		verify(repo, times(1)).delete(s);
 	}
 	
-	void testGetById() {
+	void testgetStudent() {
 		
-		when(repo.getById(14343435)).thenReturn(s);
+		when(repo.findById(s.getId())).thenReturn(Optional.of(s));
 		assertThat(s);
 	}
 }
