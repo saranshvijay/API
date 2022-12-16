@@ -1,5 +1,7 @@
+
 package com.fnp.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -12,8 +14,10 @@ import org.springframework.stereotype.Component;
 
 @Entity
 @Component
-public class Student {
+public class Student implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@NotNull
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -135,6 +139,25 @@ public class Student {
 	 * @param updatedBy the updatedBy to set
 	 */
 	public void setUpdatedBy(String updatedBy) {
+		UpdatedBy = updatedBy;
+	}
+	
+	
+	public Student() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Student(@NotNull int id, String name, String email, long phone, Date lastUpdatedBy, Date createdOn,
+			String createdby, String updatedBy) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.phone = phone;
+		this.lastUpdatedBy = lastUpdatedBy;
+		CreatedOn = createdOn;
+		Createdby = createdby;
 		UpdatedBy = updatedBy;
 	}
 
