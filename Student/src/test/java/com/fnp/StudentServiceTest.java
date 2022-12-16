@@ -73,7 +73,7 @@ public class StudentServiceTest {
 	}
 	
 	@Test
-	void testgetAllStudents() {
+	void testGetAllStudents() {
 		
 		Date date = new Date();
 		//When method requires an argument which has to be a Mock(method call on mock);
@@ -82,13 +82,13 @@ public class StudentServiceTest {
 	}
 	
 	@Test
-	void testdeleteStudent() {
+	void testDeleteStudent() {
 		when(repo.save(s)).thenReturn(s);
 		repo.delete(s);
 		verify(repo, times(1)).delete(s);
 	}
 	@Test
-	void testgetStudent() {
+	void testGetStudent() {
 		
 		when(repo.save(s)).thenReturn(s);
 		when(repo.findById(s.getId())).thenReturn(Optional.of(s));
