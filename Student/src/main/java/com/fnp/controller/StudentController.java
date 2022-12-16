@@ -30,7 +30,7 @@ public class StudentController {
 	StudentService studentService;
 
 	@PostMapping(value = "/students", consumes = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ROLE_USER')")
 	public ResponseEntity<Student> addStudent(@Valid @RequestBody StudentModel studentModel,
 			BindingResult bindingResult) throws Exception {
 		Student studentObj = null;
@@ -65,7 +65,7 @@ public class StudentController {
 	}
 
 	@GetMapping("/students")
-	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ROLE_USER')")
 	public ResponseEntity<List<Student>> getallStudent() {
 		List<Student> students = studentService.getAllStudents();
 		return ResponseEntity.ok(students);

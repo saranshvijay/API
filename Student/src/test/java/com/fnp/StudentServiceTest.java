@@ -87,10 +87,11 @@ public class StudentServiceTest {
 		repo.delete(s);
 		verify(repo, times(1)).delete(s);
 	}
-	
+	@Test
 	void testgetStudent() {
 		
+		when(repo.save(s)).thenReturn(s);
 		when(repo.findById(s.getId())).thenReturn(Optional.of(s));
-		assertThat(s);
+		assertEquals(repo.findById(s.getId()), Optional.of(s));
 	}
 }
