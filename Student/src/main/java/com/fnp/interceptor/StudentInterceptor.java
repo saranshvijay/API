@@ -23,11 +23,11 @@ public class StudentInterceptor implements HandlerInterceptor {
 			throws Exception {
 		log.info(request + "  " + request.getMethod());
 
-//		Long millis = dateStore.getTime();
-//		Long time = millis + (60 * 1000);
-//		if (time > System.currentTimeMillis()) {
-//			return false;
-//		}
+		Long millis = dateStore.getTime();
+		Long time = millis + (60 * 1000);
+		if (time > System.currentTimeMillis()) {
+			return false;
+		}
 		return true;
 	}
 

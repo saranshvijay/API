@@ -66,19 +66,14 @@ public class Tester {
 		student.setCreatedOn(date);
 		student.setLastUpdatedBy(date);
 		
-//		when(service.saveStudent(any())).thenReturn(student); 
-//		Boolean res = repo.existsById(1);
 		System.out.println("hkjh");
-//		System.out.println(service.saveStudent(studentModel));
+
 		System.out.println(studentModel);
 		System.out.println("jggj");
 		Student student2 = service.saveStudent(studentModel);
 		System.out.println(student2);
 		assertEquals(1434343473,student2.getId());
-//		assertThat(res).isTrue();
-//		when(service.saveStudent(studentModel)).thenReturn();
-//		Boolean res = repo.existsById(1);
-//		assertThat(res).isTrue();
+
 	}
 	
 	@Test
