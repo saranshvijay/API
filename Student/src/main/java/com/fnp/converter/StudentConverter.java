@@ -29,14 +29,13 @@ public class StudentConverter {
 	public Student updateConverter(StudentModel studentModel) {
 		
 		Student student = new Student();
-		Date date = new Date();
-
+		
 		student.setId(studentModel.getId());
 		student.setName(studentModel.getName());
 		student.setPhone(studentModel.getPhone());
 		student.setEmail(studentModel.getEmail());
 		student.setUpdatedBy("John");
-		student.setLastUpdatedBy(date);
+		student.setLastUpdatedBy(new Date());
 		
 		return student;
 		
