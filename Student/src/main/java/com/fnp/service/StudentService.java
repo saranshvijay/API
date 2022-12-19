@@ -28,10 +28,10 @@ public class StudentService {
 	public Student saveStudent(StudentModel studentModel) {
 
 		Student student = converter.saveConverter(studentModel);
-		
+
 		Student studentSaved = repository.save(student);
 		redis.opsForHash().put("student", studentSaved.getId(), studentSaved);
-		redis.expire("student",20, TimeUnit.SECONDS);
+		redis.expire("student", 20, TimeUnit.SECONDS);
 
 		return studentSaved;
 	}
@@ -48,19 +48,18 @@ public class StudentService {
 	}
 
 	public String updateStudent(StudentModel studentModel) {
-		
+
 		if (repository.existsById(studentModel.getId())) {
 			Student student = converter.updateConverter(studentModel);
 			repository.save(student);
-			if(redis.hasKey("student")) { 
-				if(redis.opsForHash().hasKey("student", student.getId())){
-					redis.opsForHash().delete("student", student.getId());
+			if (redis.hasKey("student")) {
+				if (redis.opsForHash().hasKey("student", student.getId())) {
 					redis.opsForHash().put("student", student.getId(), student);
-					redis.expire("student",20, TimeUnit.SECONDS);
+					redis.expire("student", 20, TimeUnit.SECONDS);
 				}
-			}else {
+			} else {
 				redis.opsForHash().put("student", student.getId(), student);
-				redis.expire("student",20, TimeUnit.SECONDS);
+				redis.expire("student", 20, TimeUnit.SECONDS);
 
 			}
 			return "Updated Successfully.";
@@ -70,7 +69,7 @@ public class StudentService {
 	}
 
 	public Student getStudent(int id) {
-		
+
 		if (redis.opsForHash().hasKey("student", id)) {
 			Student student = (Student) redis.opsForHash().get("student", id);
 			return student;
@@ -79,7 +78,7 @@ public class StudentService {
 			if (obj.isPresent()) {
 				Student student = obj.get();
 				redis.opsForHash().put("student", student.getId(), student);
-				redis.expire("student",20, TimeUnit.SECONDS);
+				redis.expire("student", 20, TimeUnit.SECONDS);
 				return student;
 			}
 		}
@@ -88,13 +87,13 @@ public class StudentService {
 
 	public List<Student> getAllStudents() {
 		if (redis.hasKey("students")) {
-			if (redis.opsForHash().hasKey("students", 5)) {
-				return (List<Student>) redis.opsForHash().get("students", 5);
+			if (redis.opsForHash().hasKey("students", "studentlist")) {
+				return (List<Student>) redis.opsForHash().get("students", "studentlist");
 			}
 		}
 		List<Student> list = repository.findAll();
-		redis.opsForHash().put("students", 5, list);
-		redis.expire("students",20, TimeUnit.SECONDS);
+		redis.opsForHash().put("students", "studentlist", list);
+		redis.expire("students", 20, TimeUnit.SECONDS);
 
 		return list;
 	}

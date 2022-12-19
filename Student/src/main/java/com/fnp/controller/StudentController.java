@@ -29,7 +29,7 @@ import com.fnp.service.StudentService;
 public class StudentController {
 
 	private static Logger log = LoggerFactory.getLogger(StudentController.class);
-	
+
 	@Autowired
 	StudentService studentService;
 
@@ -43,7 +43,7 @@ public class StudentController {
 			throw new StudentBindingException(bindingResult.toString());
 		}
 		studentObj = studentService.saveStudent(studentModel);
-		return new ResponseEntity<>(studentObj,HttpStatus.CREATED);
+		return new ResponseEntity<>(studentObj, HttpStatus.CREATED);
 	}
 
 	@DeleteMapping("/students/{id}")
@@ -52,26 +52,25 @@ public class StudentController {
 		String status = studentService.deleteStudent(delete);
 		return new ResponseEntity<String>(status, HttpStatus.GONE);
 	}
-	
 
 	@GetMapping("/students/{id}")
 	@PreAuthorize("hasRole('ROLE_USER')")
 	public ResponseEntity<Student> getStudent(@PathVariable("id") int id) {
 		Student studentObj = studentService.getStudent(id);
-		return new ResponseEntity<>(studentObj,HttpStatus.OK);
+		return new ResponseEntity<>(studentObj, HttpStatus.OK);
 	}
 
 	@PutMapping("/students")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<String> updateStudent(@RequestBody StudentModel studentModel) {
 		String status = studentService.updateStudent(studentModel);
-		return new ResponseEntity<>(status,HttpStatus.OK);
+		return new ResponseEntity<>(status, HttpStatus.OK);
 	}
 
 	@GetMapping("/students")
 	@PreAuthorize("hasRole('ROLE_USER')")
 	public ResponseEntity<List<Student>> getallStudent() {
 		List<Student> students = studentService.getAllStudents();
-		return new ResponseEntity<>(students,HttpStatus.OK);
+		return new ResponseEntity<>(students, HttpStatus.OK);
 	}
 }
