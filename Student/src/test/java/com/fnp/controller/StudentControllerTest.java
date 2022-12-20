@@ -1,23 +1,15 @@
 package com.fnp.controller;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -75,52 +67,6 @@ public class StudentControllerTest {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-	}
-
-	@Test
-	void testaddStudent() {
-
-		Mockito.when(studentService.saveStudent(studentModel)).thenReturn(s1);
-		ResponseEntity<Student> responseEntity = studentController.addStudent(studentModel);
-		Assertions.assertNotNull(responseEntity.getBody().getEmail());
-		assertEquals(HttpStatus.CREATED.value(), responseEntity.getStatusCodeValue());
-	}
-
-	@Test
-	void testDeleteStudent() {
-
-		Mockito.when(studentService.deleteStudent(1)).thenReturn("Deleted");
-		ResponseEntity<String> responseEntity = studentController.deleteStudent(1);
-		Assertions.assertEquals("Deleted", responseEntity.getBody());
-	}
-
-	@Test
-	void testUpdateStudent() {
-
-		Mockito.when(studentService.updateStudent(studentModel)).thenReturn("Updated Successfully.");
-		ResponseEntity<String> responseEntity = studentController.updateStudent(studentModel);
-		Assertions.assertEquals("Updated Successfully.", responseEntity.getBody());
-
-	}
-
-	@Test
-	void testGetStudent() {
-
-		Mockito.when(studentService.getStudent(14343435)).thenReturn(s);
-		ResponseEntity<Student> responseEntity = studentController.getStudent(14343435);
-		Assertions.assertEquals(14343435, responseEntity.getBody().getId());
-	}
-
-	@Test
-	void testGetAllStudent() {
-
-		List<Student> list = new ArrayList<>();
-		list.add(s);
-		list.add(s1);
-		Mockito.when(studentService.getAllStudents()).thenReturn(list);
-		ResponseEntity<List<Student>> responseEntity = studentController.getallStudent();
-		Assertions.assertEquals(2, responseEntity.getBody().size());
-
 	}
 
 	@WithMockUser(roles = "ADMIN")
