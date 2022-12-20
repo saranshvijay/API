@@ -24,6 +24,10 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation group: 'redis.clients', name: 'jedis'	
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.7.5'
+	implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
+	//testImplementation group: 'org.springframework.security', name: 'spring-security-test', version: '5.7.5'
+	testImplementation group: 'org.springframework.security', name: 'spring-security-test', version: '5.5.2'
+	
 }
 
 tasks.named('test') {
