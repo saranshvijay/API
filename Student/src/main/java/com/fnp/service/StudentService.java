@@ -56,6 +56,7 @@ public class StudentService {
 				if (redis.opsForHash().hasKey("student", student.getId())) {
 					redis.opsForHash().put("student", student.getId(), student);
 					redis.expire("student", 20, TimeUnit.SECONDS);
+					return "Updated Successfully.";
 				}
 			} else {
 				redis.opsForHash().put("student", student.getId(), student);
