@@ -1,11 +1,13 @@
 package com.fnp.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,6 +28,8 @@ import com.fnp.service.StudentService;
 @RestController
 public class StudentController {
 
+	private static Logger log = LoggerFactory.getLogger(StudentController.class);
+
 	@Autowired
 	StudentService studentService;
 
@@ -39,35 +43,34 @@ public class StudentController {
 			throw new StudentBindingException(bindingResult.toString());
 		}
 		studentObj = studentService.saveStudent(studentModel);
-		return ResponseEntity.ok().body(studentObj);
+		return new ResponseEntity<>(studentObj, HttpStatus.CREATED);
 	}
 
 	@DeleteMapping("/students/{id}")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<String> deleteStudent(@PathVariable("id") int delete) {
 		String status = studentService.deleteStudent(delete);
-		return ResponseEntity.ok(status);
+		return new ResponseEntity<String>(status, HttpStatus.GONE);
 	}
-	
 
 	@GetMapping("/students/{id}")
 	@PreAuthorize("hasRole('ROLE_USER')")
-	public ResponseEntity<Optional<Student>> getStudent(@PathVariable("id") int id) {
-		Optional<Student> studentObj = studentService.getStudent(id);
-		return ResponseEntity.ok(studentObj);
+	public ResponseEntity<Student> getStudent(@PathVariable("id") int id) {
+		Student studentObj = studentService.getStudent(id);
+		return new ResponseEntity<>(studentObj, HttpStatus.OK);
 	}
 
 	@PutMapping("/students")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<String> updateStudent(@RequestBody StudentModel studentModel) {
 		String status = studentService.updateStudent(studentModel);
-		return ResponseEntity.ok(status);
+		return new ResponseEntity<>(status, HttpStatus.OK);
 	}
 
 	@GetMapping("/students")
 	@PreAuthorize("hasRole('ROLE_USER')")
 	public ResponseEntity<List<Student>> getallStudent() {
 		List<Student> students = studentService.getAllStudents();
-		return ResponseEntity.ok(students);
+		return new ResponseEntity<>(students, HttpStatus.OK);
 	}
 }

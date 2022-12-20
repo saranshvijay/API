@@ -2,8 +2,10 @@ package com.fnp.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.fnp.converter.StudentConverter;
@@ -15,6 +17,9 @@ import com.fnp.repository.StudentRepository;
 public class StudentService {
 
 	@Autowired
+	RedisTemplate<String, Student> redis;
+
+	@Autowired
 	StudentRepository repository;
 
 	@Autowired
@@ -24,15 +29,18 @@ public class StudentService {
 
 		Student student = converter.saveConverter(studentModel);
 
-		Student student1 = repository.save(student);
-		return student1;
+		Student studentSaved = repository.save(student);
+		redis.opsForHash().put("student", studentSaved.getId(), studentSaved);
+		redis.expire("student", 20, TimeUnit.SECONDS);
+
+		return studentSaved;
 	}
 
 	public String deleteStudent(int id) {
 
 		if (repository.existsById(id)) {
 			repository.deleteById(id);
-
+			redis.opsForHash().delete("student", id);
 			return "deleted";
 		} else {
 			return "doesNotExist";
@@ -44,26 +52,39 @@ public class StudentService {
 		if (repository.existsById(studentModel.getId())) {
 			Student student = converter.updateConverter(studentModel);
 			repository.save(student);
-
+			redis.opsForHash().put("student", student.getId(), student);
+			redis.expire("student", 20, TimeUnit.SECONDS);
 			return "Updated Successfully.";
-		} else
-			return "Record does not exist.";
-
+		}
+		return "Record does not exist.";
 	}
 
-	public Optional<Student> getStudent(int id) {
+	public Student getStudent(int id) {
 
-		if (repository.existsById(id)) {
+		if (redis.opsForHash().hasKey("student", id)) {
+			Student student = (Student) redis.opsForHash().get("student", id);
+			return student;
+		} else if (repository.existsById(id)) {
 			Optional<Student> obj = repository.findById(id);
-			return obj;
-		} else {
-			return null;
+			if (obj.isPresent()) {
+				Student student = obj.get();
+				redis.opsForHash().put("student", student.getId(), student);
+				redis.expire("student", 20, TimeUnit.SECONDS);
+				return student;
+			}
 		}
+		return null;
 	}
 
 	public List<Student> getAllStudents() {
-
+		if (redis.hasKey("students")) {
+			if (redis.opsForHash().hasKey("students", "studentlist")) {
+				return (List<Student>) redis.opsForHash().get("students", "studentlist");
+			}
+		}
 		List<Student> list = repository.findAll();
+		redis.opsForHash().put("students", "studentlist", list);
+		redis.expire("students", 20, TimeUnit.SECONDS);
 
 		return list;
 	}
