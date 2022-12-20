@@ -1,4 +1,4 @@
-package com.fnp;
+package com.fnp.controller;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

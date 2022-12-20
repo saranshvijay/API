@@ -1,8 +1,6 @@
-package com.fnp;
+package com.fnp.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -21,7 +19,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import com.fnp.dto.Student;
 import com.fnp.model.StudentModel;
 import com.fnp.repository.StudentRepository;
-import com.fnp.service.StudentService;
 
 @SpringBootTest
 public class StudentServiceTest {
