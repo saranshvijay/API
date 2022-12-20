@@ -52,21 +52,11 @@ public class StudentService {
 		if (repository.existsById(studentModel.getId())) {
 			Student student = converter.updateConverter(studentModel);
 			repository.save(student);
-			if (redis.hasKey("student")) {
-				if (redis.opsForHash().hasKey("student", student.getId())) {
-					redis.opsForHash().put("student", student.getId(), student);
-					redis.expire("student", 20, TimeUnit.SECONDS);
-					return "Updated Successfully.";
-				}
-			} else {
-				redis.opsForHash().put("student", student.getId(), student);
-				redis.expire("student", 20, TimeUnit.SECONDS);
-
-			}
+			redis.opsForHash().put("student", student.getId(), student);
+			redis.expire("student", 20, TimeUnit.SECONDS);
 			return "Updated Successfully.";
-		} else
-			return "Record does not exist.";
-
+		}
+		return "Record does not exist.";
 	}
 
 	public Student getStudent(int id) {
